@@ -57,6 +57,8 @@ export const fetchWithRefresh = async <T>(
   }
 };
 
+// получение ингридиентов
+
 type TIngredientsResponse = TServerResponse<{
   data: TIngredient[];
 }>;
@@ -71,6 +73,7 @@ type TOrdersResponse = TServerResponse<{
   data: TOrder[];
 }>;
 
+// получить массив ингредиентов
 export const getIngredientsApi = () =>
   fetch(`${URL}/ingredients`)
     .then((res) => checkResponse<TIngredientsResponse>(res))
@@ -79,6 +82,7 @@ export const getIngredientsApi = () =>
       return Promise.reject(data);
     });
 
+// получить ленту заказов
 export const getFeedsApi = () =>
   fetch(`${URL}/orders/all`)
     .then((res) => checkResponse<TFeedsResponse>(res))
@@ -87,6 +91,7 @@ export const getFeedsApi = () =>
       return Promise.reject(data);
     });
 
+// обновить (?) заказы
 export const getOrdersApi = () =>
   fetchWithRefresh<TFeedsResponse>(`${URL}/orders`, {
     method: 'GET',
@@ -104,6 +109,7 @@ type TNewOrderResponse = TServerResponse<{
   name: string;
 }>;
 
+// отправить заказ
 export const orderBurgerApi = (data: string[]) =>
   fetchWithRefresh<TNewOrderResponse>(`${URL}/orders`, {
     method: 'POST',
@@ -123,6 +129,7 @@ type TOrderResponse = TServerResponse<{
   orders: TOrder[];
 }>;
 
+// получить заказ по его номеру
 export const getOrderByNumberApi = (number: number) =>
   fetch(`${URL}/orders/${number}`, {
     method: 'GET',
@@ -143,6 +150,7 @@ type TAuthResponse = TServerResponse<{
   user: TUser;
 }>;
 
+// отправить данные для регистрации
 export const registerUserApi = (data: TRegisterData) =>
   fetch(`${URL}/auth/register`, {
     method: 'POST',
@@ -162,6 +170,7 @@ export type TLoginData = {
   password: string;
 };
 
+// отправить данные для входа
 export const loginUserApi = (data: TLoginData) =>
   fetch(`${URL}/auth/login`, {
     method: 'POST',
@@ -176,6 +185,7 @@ export const loginUserApi = (data: TLoginData) =>
       return Promise.reject(data);
     });
 
+// отрпавить данные, что пароль забыт
 export const forgotPasswordApi = (data: { email: string }) =>
   fetch(`${URL}/password-reset`, {
     method: 'POST',
@@ -190,6 +200,7 @@ export const forgotPasswordApi = (data: { email: string }) =>
       return Promise.reject(data);
     });
 
+// отрпавить данные для сброса пароля
 export const resetPasswordApi = (data: { password: string; token: string }) =>
   fetch(`${URL}/password-reset/reset`, {
     method: 'POST',

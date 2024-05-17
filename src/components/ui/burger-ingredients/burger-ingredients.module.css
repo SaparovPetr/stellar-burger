@@ -17,6 +17,8 @@ p {
 
 .content {
   overflow-y: scroll;
+  /* свериться с макетом */
+  max-height: 80vh;
 }
 
 .menu {
