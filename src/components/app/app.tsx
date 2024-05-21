@@ -1,7 +1,4 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable prettier/prettier */
-
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
 
@@ -17,30 +14,24 @@ import {
   Register,
   ResetPassword
 } from '@pages';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from 'src/services/store';
-import { selectIngredients } from '../../services/slices/ingredientsSlice';
+import { useAppDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/thunks/fetchIngredients';
-import { setConstuctorItems } from '../../services/slices/burgerConstructorSlice';
+import { fetchFeed } from 'src/services/thunks/fetchFeed';
 
 const App = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const backgroundLocation = location.state?.background;
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(setConstuctorItems());
-  // }, [dispatch]);
-
-  // console.log(ingredients)
-
   return (
     <>
       <AppHeader />
-      <Routes>
+      <Routes location={backgroundLocation || location}>
         {/* страницы без защиты: */}
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
@@ -57,25 +48,16 @@ const App = () => {
         <Route
           path='/feed/:number'
           element={
-            <Modal
-              title={''}
-              onClose={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-            >
+            <Modal title={''} onClose={function (): void {}}>
               <OrderInfo />
             </Modal>
           }
         />
+
         <Route
           path='/ingredients/:id'
           element={
-            <Modal
-              title={''}
-              onClose={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-            >
+            <Modal title={''} onClose={function (): void {}}>
               <IngredientDetails />
             </Modal>
           }
@@ -85,17 +67,27 @@ const App = () => {
         <Route
           path='/profile/orders/:number'
           element={
-            <Modal
-              title={''}
-              onClose={function (): void {
-                throw new Error('Function not implemented.');
-              }}
-            >
+            <Modal title={''} onClose={function (): void {}}>
               <OrderInfo />
             </Modal>
           }
         />
       </Routes>
+
+      {backgroundLocation && (
+        <Routes>
+          <Route path='/' element={<ConstructorPage />} />
+
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal title={''} onClose={function (): void {}}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </>
   );
 };

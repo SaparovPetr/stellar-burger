@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { getIngredientsApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 

@@ -1,32 +1,51 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable arrow-body-style */
-/* eslint-disable prettier/prettier */
-
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TOrder } from '@utils-types';
+import { fetchFeed } from '../thunks/fetchFeed';
 
 interface FeedState {
   orders: TOrder[];
   total: number;
   totalTooday: number;
   status: RequestStatus;
+  error: string | null;
 }
 
 const initialStateForOrders: FeedState = {
   orders: [],
   total: 0,
   totalTooday: 0,
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: null
 };
 
 export const feedSlice = createSlice({
   name: 'feedSlice',
   initialState: initialStateForOrders,
   reducers: {},
-  selectors: {},
-  extraReducers: (builder) => {}
+  selectors: {
+    selectOrders: (sliceState) => sliceState.orders,
+    selectTotal: (sliceState) => sliceState.total,
+    selectTotalToday: (sliceState) => sliceState.totalTooday,
+    selectStatus: (sliceState) => sliceState.status
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchFeed.pending, (state) => {
+        state.status = RequestStatus.Loading;
+      })
+      .addCase(fetchFeed.fulfilled, (state, action) => {
+        state.status = RequestStatus.Success;
+        state.orders = action.payload.orders;
+        // console.log(action.payload);
+      })
+      .addCase(fetchFeed.rejected, (state, action) => {
+        state.status = RequestStatus.Failed;
+        state.error = action.error.message || null;
+      });
+  }
 });
 
-export const {} = feedSlice.selectors;
+export const { selectOrders, selectTotal, selectTotalToday, selectStatus } =
+  feedSlice.selectors;
 
 // export default feedSlice.reducer;

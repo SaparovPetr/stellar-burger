@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React, { StrictMode } from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 import App from './components/app/app';

@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-key */
-/* eslint-disable arrow-body-style */
-/* eslint-disable prettier/prettier */
 import styles from './constructor-page.module.css';
 
 import { BurgerIngredients } from '../../components';

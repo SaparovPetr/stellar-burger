@@ -1,9 +1,6 @@
 // orderSlice.ts
 // это срез текущего заказа модального окна - процесса создания одного заказа
 
-/* eslint-disable prettier/prettier */
-/* eslint-disable arrow-body-style */
-/* eslint-disable prettier/prettier */
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus } from '@utils-types';
 

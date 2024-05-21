@@ -1,6 +1,4 @@
-/* eslint-disable prettier/prettier */
 // для вывода списка заказов пользователя
-// import { RequestStatus } from "src/types";
 
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TOrder } from '@utils-types';

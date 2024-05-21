@@ -1,5 +1,4 @@
 // src\components\burger-ingredients\burger-ingredients.tsx
-/* eslint-disable prettier/prettier */
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
 
@@ -11,7 +10,7 @@ import { useAppSelector } from '../../services/store';
 export const BurgerIngredients: FC = () => {
   const ingredients = useAppSelector(selectIngredients);
 
-  /** TODO: взять переменные из стора */
+  /** TODO: DONE взять переменные из стора */
   const buns = ingredients.filter((ingredient) => ingredient.type === 'bun');
   const mains = ingredients.filter((ingredient) => ingredient.type === 'main');
   const sauces = ingredients.filter(

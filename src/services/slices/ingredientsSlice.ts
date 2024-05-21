@@ -1,12 +1,10 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable arrow-body-style */
-
 // ingredientsSlice.ts
 import { getIngredientsApi } from '@api';
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TIngredient } from '@utils-types';
 // import { RequestStatus } from "../../types";
 import { fetchIngredients } from '../thunks/fetchIngredients';
+import { useParams } from 'react-router-dom';
 
 interface ConstructorPageState {
   ingredients: TIngredient[];
@@ -23,12 +21,14 @@ export const ingredientsSlice = createSlice({
   initialState: initialStateForAllIngredients,
   reducers: {},
   selectors: {
-    selectIngredients: (sliceState) => {
-      return sliceState.ingredients;
+    selectOneIngredient: (sliceState) => {
+      const IDfromURL = useParams();
+      const findObjectById = (id: string | undefined) =>
+        sliceState.ingredients.find((obj) => obj._id === id);
+      return findObjectById(IDfromURL.id);
     },
-    selectIsLoading: (sliceState) => {
-      return sliceState.requestStatus;
-    }
+    selectIngredients: (sliceState) => sliceState.ingredients,
+    selectIsLoading: (sliceState) => sliceState.requestStatus
   },
   extraReducers: (builder) => {
     builder
@@ -45,7 +45,7 @@ export const ingredientsSlice = createSlice({
   }
 });
 
-export const { selectIngredients, selectIsLoading } =
+export const { selectOneIngredient, selectIngredients, selectIsLoading } =
   ingredientsSlice.selectors;
 
 // export const { toggleLike } = ingredientsSlice.actions;

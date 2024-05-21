@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
@@ -12,31 +11,12 @@ import {
   selectOrderModalData,
   selectOrderRequest
 } from '../../services/slices/burgerConstructorSlice';
-// import { selectIngredientsForConstructor } from '../../services/slices/burgerConstructorSlice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  // const constructorItems = useAppSelector(
-  //   (state: RootState) => state.burgerConstructorSlice.constructorItems
-  // )
+  /** TODO: DONE - взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useAppSelector(selectConstuctorItems);
   const orderRequest = useAppSelector(selectOrderRequest);
   const orderModalData = useAppSelector(selectOrderModalData);
-
-  // console.log(constructorItems.bun.name)
-  // console.log(orderRequest)
-  // console.log(orderModalData)
-
-  // const constructorItems = {
-  //   bun: {
-  //     price: 0
-  //   },
-  //   ingredients: []
-  // };
-
-  // const orderRequest = false;
-
-  // const orderModalData = null;
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;

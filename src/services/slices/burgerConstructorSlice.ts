@@ -1,14 +1,12 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable prettier/prettier */
-/* eslint-disable prettier/prettier */
 import { createSlice } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 
 interface TBurgerConstructor {
   bun: {
-    name: string,
+    _id: string;
+    name: string;
     price: number;
-    image: any
+    image: any;
   };
   ingredients: TConstructorIngredient[];
 }
@@ -22,9 +20,10 @@ interface BurgerConstructorState {
 const initialStateForConstructor: BurgerConstructorState = {
   constructorItems: {
     bun: {
-      name: 'выбирете булку',
+      _id: '',
+      name: 'Выберете булку',
       price: 0,
-      image: "https://stellarburgers.nomoreparties.site/static/media/loading.89540200.svg"
+      image: 'https://www.svgrepo.com/show/404711/alien.svg'
     },
     ingredients: []
   },
@@ -37,15 +36,40 @@ export const burgerConstructorSlice = createSlice({
   initialState: initialStateForConstructor,
   reducers: {
     setConstuctorItems(state, action) {
-      if (action.payload.type === 'bun') {    
-        state.constructorItems.bun  = action.payload;
+      if (action.payload.type === 'bun') {
+        state.constructorItems.bun = action.payload;
       }
       if (action.payload.type !== 'bun') {
         state.constructorItems.ingredients.push(action.payload);
-      } 
+      }
+    },
+    removeConstuctorItems(state, action) {
+      state.constructorItems.ingredients =
+        state.constructorItems.ingredients.filter(
+          (ingredientForDelete) =>
+            ingredientForDelete._id !== action.payload._id
+        );
     },
 
-
+    /**  TODO: SPS - разработать перемещение на основе action.payload*/
+    increseIndex(state, action) {
+      [
+        state.constructorItems.ingredients[0],
+        state.constructorItems.ingredients[1]
+      ] = [
+        state.constructorItems.ingredients[1],
+        state.constructorItems.ingredients[0]
+      ];
+    },
+    decreseIndex(state, action) {
+      [
+        state.constructorItems.ingredients[1],
+        state.constructorItems.ingredients[0]
+      ] = [
+        state.constructorItems.ingredients[0],
+        state.constructorItems.ingredients[1]
+      ];
+    },
 
     setOrderRequest(state, action) {
       state.orderRequest = action.payload;
@@ -55,16 +79,9 @@ export const burgerConstructorSlice = createSlice({
     }
   },
   selectors: {
-    // eslint-disable-next-line arrow-body-style
-    selectConstuctorItems: (sliceState) => {
-      return sliceState.constructorItems;
-    },
-    selectOrderRequest: (sliceState) => {
-      return sliceState.orderRequest;
-    },
-    selectOrderModalData: (sliceState) => {
-      return sliceState.orderModalData;
-    }
+    selectConstuctorItems: (sliceState) => sliceState.constructorItems,
+    selectOrderRequest: (sliceState) => sliceState.orderRequest,
+    selectOrderModalData: (sliceState) => sliceState.orderModalData
   },
   extraReducers: () => {}
 });
@@ -75,6 +92,11 @@ export const {
   selectOrderModalData
 } = burgerConstructorSlice.selectors;
 
-export const { setConstuctorItems } = burgerConstructorSlice.actions;
+export const {
+  setConstuctorItems,
+  removeConstuctorItems,
+  increseIndex,
+  decreseIndex
+} = burgerConstructorSlice.actions;
 
 // export const setConstuctorItems = burgerConstructorSlice.reducer;

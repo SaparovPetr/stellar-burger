@@ -9,25 +9,10 @@ import {
 } from '@zlden/react-developer-burger-ui-components';
 
 import { TBurgerIngredientUIProps } from './type';
-import { useAppDispatch, useAppSelector } from '../../../services/store';
-import {
-  selectConstuctorItems,
-  setConstuctorItems
-} from '../../../services/slices/burgerConstructorSlice';
-import { selectIngredients } from '../../../services/slices/ingredientsSlice';
 
 export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
   ({ ingredient, count, handleAdd, locationState }) => {
     const { image, price, name, _id } = ingredient;
-
-    const dispatch = useAppDispatch();
-
-    handleAdd = () => {
-      // console.log(ingredient)
-      dispatch(setConstuctorItems(ingredient));
-    };
-
-    // console.log(constructorItems)
 
     return (
       <li className={styles.container}>

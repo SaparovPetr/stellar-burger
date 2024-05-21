@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { combineReducers } from 'redux';
 import { ingredientsSlice } from './slices/ingredientsSlice';
 import { orderSlice } from './slices/orderSlice';
