@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TOrder } from '@utils-types';
-import { fetchFeed } from '../thunks/fetchFeed';
+import { clearFeed, fetchFeed } from '../thunks/fetchFeed';
 
 interface FeedState {
   orders: TOrder[];
@@ -36,12 +36,15 @@ export const feedSlice = createSlice({
       .addCase(fetchFeed.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;
         state.orders = action.payload.orders;
+        state.total = action.payload.total;
+        state.totalTooday = action.payload.totalToday;
         // console.log(action.payload);
       })
       .addCase(fetchFeed.rejected, (state, action) => {
         state.status = RequestStatus.Failed;
         state.error = action.error.message || null;
-      });
+      })
+      .addCase(clearFeed.fulfilled, () => initialStateForOrders);
   }
 });
 

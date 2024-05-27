@@ -21,7 +21,7 @@ const initialStateForConstructor: BurgerConstructorState = {
   constructorItems: {
     bun: {
       _id: '',
-      name: 'Выберете булку',
+      name: 'Выберите булку',
       price: 0,
       image: 'https://www.svgrepo.com/show/404711/alien.svg'
     },
@@ -51,7 +51,7 @@ export const burgerConstructorSlice = createSlice({
         );
     },
 
-    /**  TODO: SPS - разработать перемещение на основе action.payload*/
+    /**  TODO: 🔴 разработать перемещение на основе action.payload*/
     increseIndex(state, action) {
       [
         state.constructorItems.ingredients[0],

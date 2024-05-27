@@ -19,7 +19,6 @@ export const FeedInfo: FC = () => {
   /** TODO - DONE: взять переменные из стора */
   const orders = useAppSelector(selectOrders);
 
-  // const feed = {};
   const feed = {
     total: useAppSelector(selectTotal),
     totalToday: useAppSelector(selectTotalToday)

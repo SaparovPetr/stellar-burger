@@ -9,7 +9,7 @@ export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  /** TODO: DONE взять переменную из стора */
+  /** TODO: 🟢 взять переменную из стора */
 
   const burgerConstructor = useAppSelector(selectConstuctorItems);
 

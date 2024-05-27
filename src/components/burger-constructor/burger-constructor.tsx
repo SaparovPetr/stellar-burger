@@ -13,7 +13,7 @@ import {
 } from '../../services/slices/burgerConstructorSlice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: DONE - взять переменные constructorItems, orderRequest и orderModalData из стора */
+  /** TODO: 🟢 - взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useAppSelector(selectConstuctorItems);
   const orderRequest = useAppSelector(selectOrderRequest);
   const orderModalData = useAppSelector(selectOrderModalData);

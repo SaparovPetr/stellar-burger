@@ -130,13 +130,31 @@ type TOrderResponse = TServerResponse<{
 }>;
 
 // получить заказ по его номеру
-export const getOrderByNumberApi = (number: number) =>
+export const getOrderByNumberApi = (number: string | number) =>
   fetch(`${URL}/orders/${number}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json'
     }
   }).then((res) => checkResponse<TOrderResponse>(res));
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// eslint-disable-next-line prettier/prettier
+
+// отправить данные для регистрации
 
 export type TRegisterData = {
   email: string;
@@ -150,7 +168,6 @@ type TAuthResponse = TServerResponse<{
   user: TUser;
 }>;
 
-// отправить данные для регистрации
 export const registerUserApi = (data: TRegisterData) =>
   fetch(`${URL}/auth/register`, {
     method: 'POST',
@@ -215,8 +232,9 @@ export const resetPasswordApi = (data: { password: string; token: string }) =>
       return Promise.reject(data);
     });
 
-type TUserResponse = TServerResponse<{ user: TUser }>;
+export type TUserResponse = TServerResponse<{ user: TUser }>;
 
+// получение токена
 export const getUserApi = () =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {
     headers: {
@@ -224,6 +242,7 @@ export const getUserApi = () =>
     } as HeadersInit
   });
 
+// обновление учетных данных на странице редактирования профиля
 export const updateUserApi = (user: Partial<TRegisterData>) =>
   fetchWithRefresh<TUserResponse>(`${URL}/auth/user`, {
     method: 'PATCH',
@@ -234,6 +253,7 @@ export const updateUserApi = (user: Partial<TRegisterData>) =>
     body: JSON.stringify(user)
   });
 
+// выход
 export const logoutApi = () =>
   fetch(`${URL}/auth/logout`, {
     method: 'POST',
