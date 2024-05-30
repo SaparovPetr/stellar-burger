@@ -38,7 +38,6 @@ export const feedSlice = createSlice({
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalTooday = action.payload.totalToday;
-        // console.log(action.payload);
       })
       .addCase(fetchFeed.rejected, (state, action) => {
         state.status = RequestStatus.Failed;
@@ -50,5 +49,3 @@ export const feedSlice = createSlice({
 
 export const { selectOrders, selectTotal, selectTotalToday, selectStatus } =
   feedSlice.selectors;
-
-// export default feedSlice.reducer;

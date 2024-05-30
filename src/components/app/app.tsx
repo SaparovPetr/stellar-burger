@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import '../../index.css';
 import styles from './app.module.css';
 
@@ -17,9 +17,8 @@ import {
 } from '@pages';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/thunks/fetchIngredients';
-import { checkhUserAuth, loginUser } from '../../services/thunks/fetchUserAuth';
+import { checkhUserAuth } from '../../services/thunks/fetchUserAuth';
 
-import { fetchFeed } from '../../services/thunks/fetchFeed';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { selectIsLoading } from '../../services/slices/ingredientsSlice';
 
@@ -31,6 +30,7 @@ const App = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const isLoading = useAppSelector(selectIsLoading);
+  const navigate = useNavigate();
 
   const backgroundLocation = location.state?.background;
 
@@ -44,17 +44,19 @@ const App = () => {
     dispatch(checkhUserAuth());
   }, [dispatch]);
 
+  const onClose = () => {
+    navigate(-1);
+  };
+
   return (
     <div className='thisApp'>
       <AppHeader />
       {isLoading === RequestStatus.Success && (
         <div>
           <Routes location={backgroundLocation || location}>
-            {/* страницы без защиты: */}
             <Route path='/' element={<ConstructorPage />} />
             <Route path='/feed' element={<Feed />} />
             <Route path='*' element={<NotFound404 />} />
-            {/* защитить страницы: */}
             <Route
               path='/login'
               element={
@@ -114,7 +116,7 @@ const App = () => {
                 element={
                   <Modal
                     title={`Заказ #${orderNumber?.number}`}
-                    onClose={function (): void {}}
+                    onClose={onClose}
                   >
                     <OrderInfo />
                   </Modal>
@@ -123,7 +125,7 @@ const App = () => {
               <Route
                 path='/ingredients/:id'
                 element={
-                  <Modal title={''} onClose={function (): void {}}>
+                  <Modal title={''} onClose={onClose}>
                     <IngredientDetails />
                   </Modal>
                 }
@@ -132,7 +134,7 @@ const App = () => {
                 path='/profile/orders/:number'
                 element={
                   <ProtectedRoute>
-                    <Modal title={''} onClose={function (): void {}}>
+                    <Modal title={`#${orderNumber?.number}`} onClose={onClose}>
                       <OrderInfo />
                     </Modal>
                   </ProtectedRoute>
@@ -146,5 +148,3 @@ const App = () => {
   );
 };
 export default App;
-
-//  {/* <Route path='/' element={<ProtectedRoute accessRoles={[ROLE.USER, ROLE.ADMIN]} ><Home /></ProtectedRoute>} /> */}

@@ -1,7 +1,6 @@
-// для вывода списка заказов пользователя
-
 import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TOrder } from '@utils-types';
+import { fetchmyOrderList } from '../thunks/fetchmyOrderList';
 
 interface CustomersOrdersState {
   orders: TOrder[];
@@ -17,10 +16,14 @@ export const ordersSlice = createSlice({
   name: 'ordersSlice',
   initialState: initialStateForCustomersOrders,
   reducers: {},
-  selectors: {},
-  extraReducers: (builder) => {}
+  selectors: {
+    selectMyOrderList: (sliceState) => sliceState.orders
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchmyOrderList.fulfilled, (state, action) => {
+      state.orders = action.payload;
+    });
+  }
 });
 
-export const {} = ordersSlice.selectors;
-
-// export default ordersSlice.reducer;
+export const { selectMyOrderList } = ordersSlice.selectors;

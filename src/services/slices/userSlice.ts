@@ -1,17 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RequestStatus, TOrder, TUser } from '@utils-types';
+import { RequestStatus } from '@utils-types';
 import {
   checkhUserAuth,
   registerUser,
   loginUser,
-  logoutUser
+  logoutUser,
+  updateUserAuth
 } from '../thunks/fetchUserAuth';
 
 import { TUserResponse } from '@api';
 
 interface IinitialStateForUser {
   isAuthChecked: boolean;
-  data: TUserResponse | null; // 🔴 поправить тип
+  data: TUserResponse | null;
   requestStatus: RequestStatus;
 }
 
@@ -25,17 +26,14 @@ export const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialStateForUser,
   reducers: {
-    authCheck: (state) => {
-      state.isAuthChecked = true;
-    },
     userLogout: (state) => {
       state.data = null;
     }
   },
   selectors: {
-    // selectUserPersonalData: (sliceState) => sliceState.data?.user,
     selectUser: (sliceState) => sliceState.data?.user,
-    getIsAuthChecked: (sliceState) => sliceState.isAuthChecked
+    getIsAuthChecked: (sliceState) => sliceState.isAuthChecked,
+    selectUserName: (sliceState) => sliceState.data?.user.name
   },
   extraReducers: (builder) => {
     builder
@@ -45,7 +43,7 @@ export const userSlice = createSlice({
         state.isAuthChecked = true;
         state.data = action.payload;
       })
-      .addCase(checkhUserAuth.pending, (state, action) => {
+      .addCase(checkhUserAuth.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(checkhUserAuth.rejected, (state) => {
@@ -58,7 +56,7 @@ export const userSlice = createSlice({
         state.data = action.payload;
         state.requestStatus = RequestStatus.Success;
       })
-      .addCase(registerUser.pending, (state, action) => {
+      .addCase(registerUser.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(registerUser.rejected, (state) => {
@@ -70,7 +68,7 @@ export const userSlice = createSlice({
         state.data = action.payload;
         state.requestStatus = RequestStatus.Success;
       })
-      .addCase(loginUser.pending, (state, action) => {
+      .addCase(loginUser.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(loginUser.rejected, (state) => {
@@ -78,22 +76,28 @@ export const userSlice = createSlice({
       })
 
       // запрос на выход
-      .addCase(logoutUser.fulfilled, (state, action) => {
+      .addCase(logoutUser.fulfilled, (state) => {
         state.data = null;
         state.requestStatus = RequestStatus.Success;
       })
-      .addCase(logoutUser.pending, (state, action) => {
+      .addCase(logoutUser.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
       .addCase(logoutUser.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
         state.data = null;
+      })
+
+      // измененине учетных данных
+      .addCase(updateUserAuth.fulfilled, (state, action) => {
+        state.data = action.payload;
       });
   }
 });
 
-export const { selectUser, getIsAuthChecked } = userSlice.selectors;
+export const { selectUser, getIsAuthChecked, selectUserName } =
+  userSlice.selectors;
 
 export default userSlice.reducer;
 
-export const { authCheck, userLogout } = userSlice.actions;
+export const { userLogout } = userSlice.actions;

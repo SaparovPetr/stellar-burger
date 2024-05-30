@@ -2,14 +2,10 @@ import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useAppSelector } from '../../services/store';
 import { selectUser } from '../../services/slices/userSlice';
-import {
-  checkhUserAuth,
-  updateUserAuth
-} from '../../services/thunks/fetchUserAuth';
+import { updateUserAuth } from '../../services/thunks/fetchUserAuth';
 import { useAppDispatch } from '../../services/store';
 
 export const Profile: FC = () => {
-  /** TODO - DONE : взять переменную из стора */
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
@@ -41,7 +37,6 @@ export const Profile: FC = () => {
         password: formValue.password
       })
     );
-    dispatch(checkhUserAuth());
   };
 
   const handleCancel = (e: SyntheticEvent) => {
@@ -69,6 +64,4 @@ export const Profile: FC = () => {
       handleInputChange={handleInputChange}
     />
   );
-
-  return null;
 };

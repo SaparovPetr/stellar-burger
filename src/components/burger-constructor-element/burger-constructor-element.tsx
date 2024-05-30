@@ -5,8 +5,7 @@ import { useAppDispatch } from '../../services/store';
 import {
   decreseIndex,
   increseIndex,
-  removeConstuctorItems,
-  setConstuctorItems
+  removeConstuctorItems
 } from '../../services/slices/burgerConstructorSlice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
@@ -14,10 +13,10 @@ export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
     const dispatch = useAppDispatch();
 
     const handleMoveUp = () => {
-      dispatch(increseIndex({ index, totalItems }));
+      dispatch(increseIndex(index));
     };
     const handleMoveDown = () => {
-      dispatch(decreseIndex({ index, totalItems }));
+      dispatch(decreseIndex(index));
     };
 
     const handleClose = () => {

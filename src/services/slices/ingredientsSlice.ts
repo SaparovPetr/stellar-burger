@@ -1,8 +1,5 @@
-// ingredientsSlice.ts
-import { getIngredientsApi } from '@api';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { RequestStatus, TIngredient } from '@utils-types';
-// import { RequestStatus } from "../../types";
 import { fetchIngredients } from '../thunks/fetchIngredients';
 import { useParams } from 'react-router-dom';
 
@@ -47,6 +44,3 @@ export const ingredientsSlice = createSlice({
 
 export const { selectOneIngredient, selectIngredients, selectIsLoading } =
   ingredientsSlice.selectors;
-
-// export const { toggleLike } = ingredientsSlice.actions;
-// export default ingredientsSlice.reducer;

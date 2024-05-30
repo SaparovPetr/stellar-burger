@@ -9,7 +9,6 @@ export const ProfileMenu: FC = () => {
   const dispatch = useAppDispatch();
 
   const handleLogout = () => {
-    // e.preventDefault();
     dispatch(logoutUser());
   };
 

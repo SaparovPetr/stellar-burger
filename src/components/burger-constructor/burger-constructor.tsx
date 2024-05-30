@@ -1,27 +1,48 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 import {
-  RootState,
-  useAppDispatch,
-  useAppSelector
-} from '../../services/store';
-import {
+  selectArray,
   selectConstuctorItems,
   selectOrderModalData,
   selectOrderRequest
 } from '../../services/slices/burgerConstructorSlice';
+import { clearMyOrder, fetchMyOrder } from '../../services/thunks/fetchMyOrder';
+import { useNavigate } from 'react-router-dom';
+import { selectUser } from '../../services/slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
-  /** TODO: 🟢 - взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useAppSelector(selectConstuctorItems);
   const orderRequest = useAppSelector(selectOrderRequest);
   const orderModalData = useAppSelector(selectOrderModalData);
+  const ingredientsForOrder = useAppSelector(selectArray);
+  const userIsLogined = useAppSelector(selectUser);
 
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
+    if (
+      userIsLogined &&
+      constructorItems.ingredients.length &&
+      constructorItems.bun._id !== '' &&
+      ingredientsForOrder.length
+    ) {
+      dispatch(fetchMyOrder(ingredientsForOrder));
+    }
+    if (
+      !userIsLogined &&
+      constructorItems.ingredients.length &&
+      constructorItems.bun._id !== '' &&
+      ingredientsForOrder.length
+    ) {
+      dispatch(clearMyOrder());
+      navigate('/login');
+    }
   };
-  const closeOrderModal = () => {};
+  const closeOrderModal = () => {
+    dispatch(clearMyOrder());
+  };
 
   const price = useMemo(
     () =>
@@ -32,8 +53,6 @@ export const BurgerConstructor: FC = () => {
       ),
     [constructorItems]
   );
-
-  // return null;
 
   return (
     <BurgerConstructorUI

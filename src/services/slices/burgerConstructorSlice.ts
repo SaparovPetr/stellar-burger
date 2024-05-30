@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient } from '@utils-types';
+import { TConstructorIngredient } from '@utils-types';
+import { clearMyOrder, fetchMyOrder } from '../thunks/fetchMyOrder';
+
+const blueBun = '643d69a5c3f7b9001cfa093c';
+const pinkBun = '643d69a5c3f7b9001cfa093d';
 
 interface TBurgerConstructor {
   bun: {
     _id: string;
     name: string;
     price: number;
-    image: any;
+    image: string;
   };
   ingredients: TConstructorIngredient[];
 }
@@ -14,7 +18,8 @@ interface TBurgerConstructor {
 interface BurgerConstructorState {
   constructorItems: TBurgerConstructor;
   orderRequest: boolean;
-  orderModalData: null;
+  orderModalData: null | any;
+  arrayForOrder: string[];
 }
 
 const initialStateForConstructor: BurgerConstructorState = {
@@ -28,7 +33,8 @@ const initialStateForConstructor: BurgerConstructorState = {
     ingredients: []
   },
   orderRequest: false,
-  orderModalData: null
+  orderModalData: null,
+  arrayForOrder: []
 };
 
 export const burgerConstructorSlice = createSlice({
@@ -38,9 +44,59 @@ export const burgerConstructorSlice = createSlice({
     setConstuctorItems(state, action) {
       if (action.payload.type === 'bun') {
         state.constructorItems.bun = action.payload;
+
+        if (state.constructorItems.bun._id === pinkBun) {
+          state.arrayForOrder.push(pinkBun);
+          state.arrayForOrder.push(pinkBun);
+          state.arrayForOrder = state.arrayForOrder.filter(function (
+            item: any
+          ) {
+            return item !== blueBun;
+          });
+        }
+
+        if (state.constructorItems.bun._id === blueBun) {
+          state.arrayForOrder.push(blueBun);
+          state.arrayForOrder.push(blueBun);
+          state.arrayForOrder = state.arrayForOrder.filter(function (
+            item: any
+          ) {
+            return item !== pinkBun;
+          });
+        }
+
+        const dublicateBlue = state.arrayForOrder.some(function (item: any) {
+          return item === blueBun;
+        });
+        if (dublicateBlue && state.constructorItems.bun._id === blueBun) {
+          state.arrayForOrder.push(state.constructorItems.bun._id);
+          state.arrayForOrder = state.arrayForOrder.filter(function (
+            item: any
+          ) {
+            return item !== blueBun;
+          });
+          state.arrayForOrder.push(blueBun);
+          state.arrayForOrder.push(blueBun);
+        }
+
+        const dublicatePink = state.arrayForOrder.some(function (item: any) {
+          return item === pinkBun;
+        });
+        if (dublicatePink && state.constructorItems.bun._id === pinkBun) {
+          state.arrayForOrder.push(state.constructorItems.bun._id);
+          state.arrayForOrder = state.arrayForOrder.filter(function (
+            item: any
+          ) {
+            return item !== pinkBun;
+          });
+          state.arrayForOrder.push(pinkBun);
+          state.arrayForOrder.push(pinkBun);
+        }
       }
+
       if (action.payload.type !== 'bun') {
         state.constructorItems.ingredients.push(action.payload);
+        state.arrayForOrder.push(action.payload._id);
       }
     },
     removeConstuctorItems(state, action) {
@@ -49,26 +105,32 @@ export const burgerConstructorSlice = createSlice({
           (ingredientForDelete) =>
             ingredientForDelete._id !== action.payload._id
         );
+      state.arrayForOrder = state.arrayForOrder.filter(
+        (ingredientForDelete: any) => ingredientForDelete !== action.payload._id
+      );
     },
 
-    /**  TODO: 🔴 разработать перемещение на основе action.payload*/
     increseIndex(state, action) {
-      [
-        state.constructorItems.ingredients[0],
-        state.constructorItems.ingredients[1]
-      ] = [
-        state.constructorItems.ingredients[1],
-        state.constructorItems.ingredients[0]
-      ];
+      const ingredientIndex = action.payload;
+      if (ingredientIndex > 0) {
+        const temp = state.constructorItems.ingredients[ingredientIndex];
+
+        state.constructorItems.ingredients[ingredientIndex] =
+          state.constructorItems.ingredients[ingredientIndex - 1];
+
+        state.constructorItems.ingredients[ingredientIndex - 1] = temp;
+      }
     },
     decreseIndex(state, action) {
-      [
-        state.constructorItems.ingredients[1],
-        state.constructorItems.ingredients[0]
-      ] = [
-        state.constructorItems.ingredients[0],
-        state.constructorItems.ingredients[1]
-      ];
+      const ingredientIndex = action.payload;
+      if (ingredientIndex < state.constructorItems.ingredients.length - 1) {
+        const temp = state.constructorItems.ingredients[ingredientIndex];
+
+        state.constructorItems.ingredients[ingredientIndex] =
+          state.constructorItems.ingredients[ingredientIndex + 1];
+
+        state.constructorItems.ingredients[ingredientIndex + 1] = temp;
+      }
     },
 
     setOrderRequest(state, action) {
@@ -81,15 +143,29 @@ export const burgerConstructorSlice = createSlice({
   selectors: {
     selectConstuctorItems: (sliceState) => sliceState.constructorItems,
     selectOrderRequest: (sliceState) => sliceState.orderRequest,
-    selectOrderModalData: (sliceState) => sliceState.orderModalData
+    selectOrderModalData: (sliceState) => sliceState.orderModalData,
+    selectArray: (sliceState) => sliceState.arrayForOrder
   },
-  extraReducers: () => {}
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchMyOrder.pending, (state) => {
+        state.orderRequest = true;
+      })
+      .addCase(fetchMyOrder.fulfilled, (state, action) => {
+        state.orderRequest = false;
+        state.orderModalData = {
+          number: action.payload.order.number
+        };
+      })
+      .addCase(clearMyOrder.fulfilled, () => initialStateForConstructor);
+  }
 });
 
 export const {
   selectConstuctorItems,
   selectOrderRequest,
-  selectOrderModalData
+  selectOrderModalData,
+  selectArray
 } = burgerConstructorSlice.selectors;
 
 export const {
@@ -98,5 +174,3 @@ export const {
   increseIndex,
   decreseIndex
 } = burgerConstructorSlice.actions;
-
-// export const setConstuctorItems = burgerConstructorSlice.reducer;

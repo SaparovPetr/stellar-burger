@@ -44,7 +44,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               ingredient={item}
               index={index}
               totalItems={constructorItems.ingredients.length}
-              key={Math.random()} // было item.id - нормальное ли решение?
+              key={Math.random()} // было просто item.id - нормальное ли решение?
             />
           )
         )
@@ -82,7 +82,11 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         htmlType='button'
         type='primary'
         size='large'
-        children='Оформить заказ'
+        children={
+          constructorItems.ingredients.length && constructorItems.bun.price > 0
+            ? 'Оформить заказ'
+            : 'Сначала соберите бургер'
+        }
         onClick={onOrderClick}
       />
     </div>
