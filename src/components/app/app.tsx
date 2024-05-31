@@ -28,10 +28,10 @@ import ProtectedRoute from '../protected-route/protected-route';
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const location = useLocation();
   const isLoading = useAppSelector(selectIsLoading);
   const navigate = useNavigate();
 
+  const location = useLocation();
   const backgroundLocation = location.state?.background;
 
   const orderNumber = useAppSelector(selectOnlyOneOrder);
@@ -63,6 +63,15 @@ const App = () => {
                 <ProtectedRoute onlyUnAuth>
                   <Login />
                 </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path='/ingredients/:id'
+              element={
+                <Modal title={'Ингредиент'} onClose={(): void => navigate('/')}>
+                  <IngredientDetails />
+                </Modal>
               }
             />
 

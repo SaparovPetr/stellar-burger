@@ -59,14 +59,10 @@ export const registerUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk(
   'user/logoutUser',
   async (_, { dispatch }) => {
-    logoutApi()
-      .then(() => {
-        localStorage.clear();
-        deleteCookie('accessToken');
-        dispatch(userLogout());
-      })
-      .catch(() => {
-        console.log('Ошибка выполнения выхода');
-      });
+    logoutApi().then(() => {
+      localStorage.clear();
+      deleteCookie('accessToken');
+      dispatch(userLogout());
+    });
   }
 );

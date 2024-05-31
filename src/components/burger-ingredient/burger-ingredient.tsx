@@ -3,7 +3,10 @@ import { useLocation } from 'react-router-dom';
 
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
-import { setConstuctorItems } from '../../services/slices/burgerConstructorSlice';
+import {
+  setArreyForOrder,
+  setConstuctorItems
+} from '../../services/slices/burgerConstructorSlice';
 import { useAppDispatch } from '../../services/store';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
@@ -13,6 +16,7 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     const dispatch = useAppDispatch();
     const handleAdd = () => {
       dispatch(setConstuctorItems(ingredient));
+      dispatch(setArreyForOrder(ingredient));
     };
 
     return (

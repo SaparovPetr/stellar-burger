@@ -36,10 +36,10 @@ export const BurgerConstructor: FC = () => {
       constructorItems.bun._id !== '' &&
       ingredientsForOrder.length
     ) {
-      dispatch(clearMyOrder());
       navigate('/login');
     }
   };
+
   const closeOrderModal = () => {
     dispatch(clearMyOrder());
   };

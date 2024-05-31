@@ -1,9 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TConstructorIngredient } from '@utils-types';
 import { clearMyOrder, fetchMyOrder } from '../thunks/fetchMyOrder';
-
-const blueBun = '643d69a5c3f7b9001cfa093c';
-const pinkBun = '643d69a5c3f7b9001cfa093d';
+const uuid = require('uuid');
 
 interface TBurgerConstructor {
   bun: {
@@ -41,83 +39,53 @@ export const burgerConstructorSlice = createSlice({
   name: 'burgerConstructorSlice',
   initialState: initialStateForConstructor,
   reducers: {
-    setConstuctorItems(state, action) {
-      if (action.payload.type === 'bun') {
-        state.constructorItems.bun = action.payload;
-
-        if (state.constructorItems.bun._id === pinkBun) {
-          state.arrayForOrder.push(pinkBun);
-          state.arrayForOrder.push(pinkBun);
-          state.arrayForOrder = state.arrayForOrder.filter(function (
-            item: any
-          ) {
-            return item !== blueBun;
-          });
+    setConstuctorItems: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        if (action.payload.type === 'bun') {
+          state.constructorItems.bun = action.payload;
         }
 
-        if (state.constructorItems.bun._id === blueBun) {
-          state.arrayForOrder.push(blueBun);
-          state.arrayForOrder.push(blueBun);
-          state.arrayForOrder = state.arrayForOrder.filter(function (
-            item: any
-          ) {
-            return item !== pinkBun;
-          });
+        if (action.payload.type !== 'bun') {
+          state.constructorItems.ingredients.push(action.payload);
         }
+      },
 
-        const dublicateBlue = state.arrayForOrder.some(function (item: any) {
-          return item === blueBun;
-        });
-        if (dublicateBlue && state.constructorItems.bun._id === blueBun) {
-          state.arrayForOrder.push(state.constructorItems.bun._id);
-          state.arrayForOrder = state.arrayForOrder.filter(function (
-            item: any
-          ) {
-            return item !== blueBun;
-          });
-          state.arrayForOrder.push(blueBun);
-          state.arrayForOrder.push(blueBun);
-        }
-
-        const dublicatePink = state.arrayForOrder.some(function (item: any) {
-          return item === pinkBun;
-        });
-        if (dublicatePink && state.constructorItems.bun._id === pinkBun) {
-          state.arrayForOrder.push(state.constructorItems.bun._id);
-          state.arrayForOrder = state.arrayForOrder.filter(function (
-            item: any
-          ) {
-            return item !== pinkBun;
-          });
-          state.arrayForOrder.push(pinkBun);
-          state.arrayForOrder.push(pinkBun);
-        }
-      }
-
-      if (action.payload.type !== 'bun') {
-        state.constructorItems.ingredients.push(action.payload);
-        state.arrayForOrder.push(action.payload._id);
-      }
+      prepare: (ingredient: TConstructorIngredient) => ({
+        payload: { ...ingredient, id: uuid.v4() }
+      })
     },
+
     removeConstuctorItems(state, action) {
       state.constructorItems.ingredients =
         state.constructorItems.ingredients.filter(
-          (ingredientForDelete) =>
-            ingredientForDelete._id !== action.payload._id
+          (ingredientForDelete: TConstructorIngredient) =>
+            ingredientForDelete.id !== action.payload.id
         );
-      state.arrayForOrder = state.arrayForOrder.filter(
-        (ingredientForDelete: any) => ingredientForDelete !== action.payload._id
-      );
+    },
+    setArreyForOrder(state, action) {
+      state.arrayForOrder = [];
+
+      const idListFromConstructorItemsIngredients: string[] = [];
+      state.constructorItems.ingredients.forEach((item) => {
+        idListFromConstructorItemsIngredients.push(item._id);
+        return idListFromConstructorItemsIngredients;
+      });
+
+      const bunsArrey: string[] = [];
+      bunsArrey.push(state.constructorItems.bun._id);
+      const ingredientsArrey = idListFromConstructorItemsIngredients.flat();
+      const allIngredients = bunsArrey.concat(ingredientsArrey);
+
+      state.arrayForOrder = allIngredients;
+      state.arrayForOrder.push(state.arrayForOrder[0]);
     },
 
     increseIndex(state, action) {
       const ingredientIndex = action.payload;
       if (ingredientIndex > 0) {
         const temp = state.constructorItems.ingredients[ingredientIndex];
-
         state.constructorItems.ingredients[ingredientIndex] =
           state.constructorItems.ingredients[ingredientIndex - 1];
-
         state.constructorItems.ingredients[ingredientIndex - 1] = temp;
       }
     },
@@ -125,10 +93,8 @@ export const burgerConstructorSlice = createSlice({
       const ingredientIndex = action.payload;
       if (ingredientIndex < state.constructorItems.ingredients.length - 1) {
         const temp = state.constructorItems.ingredients[ingredientIndex];
-
         state.constructorItems.ingredients[ingredientIndex] =
           state.constructorItems.ingredients[ingredientIndex + 1];
-
         state.constructorItems.ingredients[ingredientIndex + 1] = temp;
       }
     },
@@ -171,6 +137,7 @@ export const {
 export const {
   setConstuctorItems,
   removeConstuctorItems,
+  setArreyForOrder,
   increseIndex,
   decreseIndex
 } = burgerConstructorSlice.actions;

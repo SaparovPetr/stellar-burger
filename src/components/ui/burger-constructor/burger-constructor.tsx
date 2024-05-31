@@ -44,7 +44,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
               ingredient={item}
               index={index}
               totalItems={constructorItems.ingredients.length}
-              key={Math.random()} // было просто item.id - нормальное ли решение?
+              key={item.id}
             />
           )
         )
