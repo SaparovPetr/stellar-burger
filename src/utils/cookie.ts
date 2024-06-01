@@ -3,8 +3,8 @@ export function getCookie(name: string): string | undefined {
   const matches = document.cookie.match(
     new RegExp(
       '(?:^|; )' +
-      name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') +
-      '=([^;]*)'
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') +
+        '=([^;]*)'
     )
   );
   return matches ? decodeURIComponent(matches[1]) : undefined;
@@ -16,7 +16,7 @@ export function setCookie(
   props: { [key: string]: string | number | Date | boolean } = {}
 ) {
   props = {
-    path: '/',
+    path: '/stellar-burger/',
     ...props
   };
 

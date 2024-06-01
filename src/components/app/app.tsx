@@ -54,7 +54,7 @@ const App = () => {
       {isLoading === RequestStatus.Success && (
         <div>
           <Routes location={backgroundLocation || location}>
-            <Route path='/' element={<ConstructorPage />} />
+            <Route path='/stellar-burger/' element={<ConstructorPage />} />
             <Route path='/stellar-burger/feed' element={<Feed />} />
             <Route path='*' element={<NotFound404 />} />
             <Route
@@ -69,7 +69,10 @@ const App = () => {
             <Route
               path='/stellar-burger/ingredients/:id'
               element={
-                <Modal title={'Ингредиент'} onClose={(): void => navigate('/')}>
+                <Modal
+                  title={'Ингредиент'}
+                  onClose={(): void => navigate('/stellar-burger/')}
+                >
                   <IngredientDetails />
                 </Modal>
               }
