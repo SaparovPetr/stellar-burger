@@ -55,10 +55,10 @@ const App = () => {
         <div>
           <Routes location={backgroundLocation || location}>
             <Route path='/' element={<ConstructorPage />} />
-            <Route path='/feed' element={<Feed />} />
+            <Route path='/stellar-burger/feed' element={<Feed />} />
             <Route path='*' element={<NotFound404 />} />
             <Route
-              path='/login'
+              path='/stellar-burger/login'
               element={
                 <ProtectedRoute onlyUnAuth>
                   <Login />
@@ -67,7 +67,7 @@ const App = () => {
             />
 
             <Route
-              path='/ingredients/:id'
+              path='/stellar-burger/ingredients/:id'
               element={
                 <Modal title={'Ингредиент'} onClose={(): void => navigate('/')}>
                   <IngredientDetails />
@@ -76,7 +76,7 @@ const App = () => {
             />
 
             <Route
-              path='/profile'
+              path='/stellar-burger/profile'
               element={
                 <ProtectedRoute>
                   <Profile />
@@ -85,7 +85,7 @@ const App = () => {
             />
 
             <Route
-              path='/register'
+              path='/stellar-burger/register'
               element={
                 <ProtectedRoute onlyUnAuth>
                   <Register />
@@ -93,7 +93,7 @@ const App = () => {
               }
             />
             <Route
-              path='/forgot-password'
+              path='/stellar-burger/forgot-password'
               element={
                 <ProtectedRoute onlyUnAuth>
                   <ForgotPassword />
@@ -101,7 +101,7 @@ const App = () => {
               }
             />
             <Route
-              path='/reset-password'
+              path='/stellar-burger/reset-password'
               element={
                 <ProtectedRoute onlyUnAuth>
                   <ResetPassword />
@@ -109,7 +109,7 @@ const App = () => {
               }
             />
             <Route
-              path='/profile/orders'
+              path='/stellar-burger/profile/orders'
               element={
                 <ProtectedRoute>
                   <ProfileOrders />
@@ -121,7 +121,7 @@ const App = () => {
           {backgroundLocation && (
             <Routes>
               <Route
-                path='/feed/:number'
+                path='/stellar-burger/feed/:number'
                 element={
                   <Modal
                     title={`Заказ #${orderNumber?.number}`}
@@ -132,7 +132,7 @@ const App = () => {
                 }
               />
               <Route
-                path='/ingredients/:id'
+                path='/stellar-burger/ingredients/:id'
                 element={
                   <Modal title={''} onClose={onClose}>
                     <IngredientDetails />
@@ -140,7 +140,7 @@ const App = () => {
                 }
               />
               <Route
-                path='/profile/orders/:number'
+                path='/stellar-burger/profile/orders/:number'
                 element={
                   <ProtectedRoute>
                     <Modal title={`#${orderNumber?.number}`} onClose={onClose}>
