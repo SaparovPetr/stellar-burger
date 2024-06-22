@@ -15,7 +15,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
       <div className={styles.menu_part_left}>
         <>
           <NavLink
-            to='/stellar-burger/'
+            to='/'
             className={({ isActive }) =>
               isActive ? styles.link_active : styles.link
             }
@@ -28,7 +28,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
         </>
         <>
           <NavLink
-            to='/stellar-burger/feed'
+            to='/feed'
             className={({ isActive }) =>
               isActive ? styles.link_active : styles.link
             }
@@ -38,14 +38,14 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
           </NavLink>
         </>
       </div>
-      <NavLink to='/stellar-burger/'>
+      <NavLink to='/'>
         <div className={styles.logo}>
           <Logo className='' />
         </div>
       </NavLink>
       <div className={styles.link_position_last}>
         <NavLink
-          to='/stellar-burger/profile'
+          to='/profile'
           className={({ isActive }) =>
             isActive ? styles.link_active : styles.link
           }

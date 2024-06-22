@@ -36,7 +36,7 @@ export const BurgerConstructor: FC = () => {
       constructorItems.bun._id !== '' &&
       ingredientsForOrder.length
     ) {
-      navigate('/stellar-burger/login');
+      navigate('/login');
     }
   };
 
