@@ -4,7 +4,7 @@ import { useAppSelector } from '../../services/store';
 import {
   getIsAuthChecked,
   selectUserName
-} from '../../services/slices/userSlice';
+} from '../../services/slices/userSlice/userSlice';
 
 export const AppHeader: FC = () => {
   const isAuthChecked = useAppSelector(getIsAuthChecked);

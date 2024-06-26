@@ -1,5 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { selectUser, getIsAuthChecked } from '../../services/slices/userSlice';
+import {
+  selectUser,
+  getIsAuthChecked
+} from '../../services/slices/userSlice/userSlice';
 import { Preloader } from '../ui/preloader';
 import { useSelector } from 'react-redux';
 

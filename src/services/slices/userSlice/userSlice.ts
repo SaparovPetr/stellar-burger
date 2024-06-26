@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RequestStatus } from '@utils-types';
+import { RequestStatus } from '../../../utils/types';
 import {
   checkhUserAuth,
   registerUser,
   loginUser,
   logoutUser,
   updateUserAuth
-} from '../thunks/fetchUserAuth';
+} from '../../thunks/fetchUserAuth';
 
-import { TUserResponse } from '@api';
+import { TUserResponse } from '../../../utils/burger-api';
 
-interface IinitialStateForUser {
+export interface IinitialStateForUser {
   isAuthChecked: boolean;
   data: TUserResponse | null;
   requestStatus: RequestStatus;
@@ -25,11 +25,7 @@ const initialStateForUser: IinitialStateForUser = {
 export const userSlice = createSlice({
   name: 'userSlice',
   initialState: initialStateForUser,
-  reducers: {
-    userLogout: (state) => {
-      state.data = null;
-    }
-  },
+  reducers: {},
   selectors: {
     selectUser: (sliceState) => sliceState.data?.user,
     getIsAuthChecked: (sliceState) => sliceState.isAuthChecked,
@@ -91,13 +87,16 @@ export const userSlice = createSlice({
       // измененине учетных данных
       .addCase(updateUserAuth.fulfilled, (state, action) => {
         state.data = action.payload;
+        state.requestStatus = RequestStatus.Success;
+      })
+      .addCase(updateUserAuth.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(updateUserAuth.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
       });
   }
 });
 
 export const { selectUser, getIsAuthChecked, selectUserName } =
   userSlice.selectors;
-
-export default userSlice.reducer;
-
-export const { userLogout } = userSlice.actions;

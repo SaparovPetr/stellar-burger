@@ -6,7 +6,7 @@ import { TBurgerIngredientProps } from './type';
 import {
   setArreyForOrder,
   setConstuctorItems
-} from '../../services/slices/burgerConstructorSlice';
+} from '../../services/slices/burgerConstructorSlice/burgerConstructorSlice';
 import { useAppDispatch } from '../../services/store';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(

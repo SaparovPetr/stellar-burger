@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TConstructorIngredient } from '@utils-types';
-import { clearMyOrder, fetchMyOrder } from '../thunks/fetchMyOrder';
+import { clearMyOrder, fetchMyOrder } from '../../thunks/fetchMyOrder';
 const uuid = require('uuid');
 
 interface TBurgerConstructor {
@@ -13,7 +13,7 @@ interface TBurgerConstructor {
   ingredients: TConstructorIngredient[];
 }
 
-interface BurgerConstructorState {
+export interface BurgerConstructorState {
   constructorItems: TBurgerConstructor;
   orderRequest: boolean;
   orderModalData: null | any;

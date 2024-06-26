@@ -1,6 +1,6 @@
 import { ProfileOrdersUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
-import { selectMyOrderList } from '../../services/slices/ordersSlice';
+import { selectMyOrderList } from '../../services/slices/ordersSlice/ordersSlice';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { fetchmyOrderList } from '../../services/thunks/fetchmyOrderList';
 

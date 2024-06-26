@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RequestStatus, TOrder } from '@utils-types';
-import { fetchmyOrderList } from '../thunks/fetchmyOrderList';
+import { RequestStatus, TOrder } from '../../../utils/types';
+import { fetchmyOrderList } from '../../thunks/fetchmyOrderList';
 
-interface CustomersOrdersState {
+export interface CustomersOrdersState {
   orders: TOrder[];
   status: RequestStatus;
+  error: null | string;
 }
 
 const initialStateForCustomersOrders: CustomersOrdersState = {
   orders: [],
-  status: RequestStatus.Idle
+  status: RequestStatus.Idle,
+  error: null
 };
 
 export const ordersSlice = createSlice({
@@ -22,6 +24,11 @@ export const ordersSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchmyOrderList.fulfilled, (state, action) => {
       state.orders = action.payload;
+      state.status = RequestStatus.Success;
+    });
+    builder.addCase(fetchmyOrderList.rejected, (state, action) => {
+      state.status = RequestStatus.Failed;
+      state.error = 'ошибка получения списка заказов пользователя';
     });
   }
 });
