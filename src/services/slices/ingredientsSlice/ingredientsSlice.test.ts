@@ -4,6 +4,10 @@ import { ConstructorPageState, ingredientsSlice } from './ingredientsSlice';
 import { mockIngredients } from './mock';
 
 describe('🟢 тесты игредиентов', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   const initialStateForAllIngredients: ConstructorPageState = {
     ingredients: [],
     requestStatus: RequestStatus.Idle,

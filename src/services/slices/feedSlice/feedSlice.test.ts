@@ -4,6 +4,10 @@ import { fetchFeed } from '../../thunks/fetchFeed';
 import { mockFeed } from './mock';
 
 describe('🟢 тесты слайса ленты заказов', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   const initialStateForOrders: FeedState = {
     orders: [],
     total: 0,
@@ -20,8 +24,7 @@ describe('🟢 тесты слайса ленты заказов', () => {
 
     expect(currentState).toEqual({
       ...initialStateForOrders,
-      status: RequestStatus.Loading,
-      error: null
+      status: RequestStatus.Loading
     });
   });
 
@@ -38,8 +41,7 @@ describe('🟢 тесты слайса ленты заказов', () => {
       orders: mockFeed.orders,
       total: mockFeed.total,
       totalTooday: mockFeed.totalToday,
-      status: RequestStatus.Success,
-      error: null
+      status: RequestStatus.Success
     });
   });
 

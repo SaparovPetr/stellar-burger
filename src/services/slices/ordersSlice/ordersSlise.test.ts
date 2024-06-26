@@ -4,6 +4,10 @@ import { CustomersOrdersState, ordersSlice } from './ordersSlice';
 import { fetchmyOrderList } from '../../thunks/fetchmyOrderList';
 
 describe(' 🟢 тесты слайса с данными списка моих заказов', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   const initialStateForCustomersOrders: CustomersOrdersState = {
     orders: [],
     status: RequestStatus.Idle,

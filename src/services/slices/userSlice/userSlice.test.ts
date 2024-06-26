@@ -16,6 +16,10 @@ import {
 } from './mock';
 
 describe('тесты слайса пользователя', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   const initialStateForUser: IinitialStateForUser = {
     isAuthChecked: false,
     data: null,
