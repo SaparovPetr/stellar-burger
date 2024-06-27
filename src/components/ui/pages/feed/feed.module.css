@@ -5,6 +5,7 @@
   max-width: 1240px;
   margin-left: auto;
   margin-right: auto;
+  /* max-height: 100vh; */
 }
 
 .titleBox {
@@ -21,6 +22,8 @@
   height: 100%;
   width: 1240px;
   overflow: hidden;
+  max-height: 80vh;
+
 }
 
 .columnOrders {

@@ -82,7 +82,11 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         htmlType='button'
         type='primary'
         size='large'
-        children='Оформить заказ'
+        children={
+          constructorItems.ingredients.length && constructorItems.bun.price > 0
+            ? 'Оформить заказ'
+            : 'Сначала соберите бургер'
+        }
         onClick={onOrderClick}
       />
     </div>
