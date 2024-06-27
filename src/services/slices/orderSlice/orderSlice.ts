@@ -7,7 +7,7 @@ export interface OrderState {
   status: boolean | null;
 }
 
-const initialStateForOrder: OrderState = {
+export const initialStateForOrder: OrderState = {
   orders: [],
   status: null
 };

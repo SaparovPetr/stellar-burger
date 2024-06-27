@@ -8,7 +8,7 @@ export interface CustomersOrdersState {
   error: null | string;
 }
 
-const initialStateForCustomersOrders: CustomersOrdersState = {
+export const initialStateForCustomersOrders: CustomersOrdersState = {
   orders: [],
   status: RequestStatus.Idle,
   error: null

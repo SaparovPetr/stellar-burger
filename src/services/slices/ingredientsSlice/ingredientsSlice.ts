@@ -9,7 +9,7 @@ export interface ConstructorPageState {
   error: string | null;
 }
 
-const initialStateForAllIngredients: ConstructorPageState = {
+export const initialStateForAllIngredients: ConstructorPageState = {
   ingredients: [],
   requestStatus: RequestStatus.Idle,
   error: null

@@ -6,7 +6,11 @@ import {
   registerUser,
   updateUserAuth
 } from '../../../services/thunks/fetchUserAuth';
-import { IinitialStateForUser, userSlice } from './userSlice';
+import {
+  IinitialStateForUser,
+  initialStateForUser,
+  userSlice
+} from './userSlice';
 import {
   mockLoginData,
   mockRegisterData,
@@ -19,12 +23,6 @@ describe('тесты слайса пользователя', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  const initialStateForUser: IinitialStateForUser = {
-    isAuthChecked: false,
-    data: null,
-    requestStatus: RequestStatus.Idle
-  };
 
   describe('🟢 тесты наличия пользователя в сторе', () => {
     test('пользователь в сторе', async () => {

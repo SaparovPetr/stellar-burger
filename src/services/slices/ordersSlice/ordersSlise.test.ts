@@ -1,18 +1,16 @@
 import { RequestStatus } from '../../../utils/types';
 import { mockOrderList } from './mock';
-import { CustomersOrdersState, ordersSlice } from './ordersSlice';
+import {
+  CustomersOrdersState,
+  initialStateForCustomersOrders,
+  ordersSlice
+} from './ordersSlice';
 import { fetchmyOrderList } from '../../thunks/fetchmyOrderList';
 
 describe(' 🟢 тесты слайса с данными списка моих заказов', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  const initialStateForCustomersOrders: CustomersOrdersState = {
-    orders: [],
-    status: RequestStatus.Idle,
-    error: null
-  };
 
   test('тест получения списка заказов пользователя', async () => {
     const currentState = ordersSlice.reducer(

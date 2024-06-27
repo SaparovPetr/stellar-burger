@@ -1,5 +1,5 @@
 import { RequestStatus } from '../../../utils/types';
-import { FeedState, feedSlice } from './feedSlice';
+import { FeedState, feedSlice, initialStateForOrders } from './feedSlice';
 import { fetchFeed } from '../../thunks/fetchFeed';
 import { mockFeed } from './mock';
 
@@ -7,14 +7,6 @@ describe('🟢 тесты слайса ленты заказов', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  const initialStateForOrders: FeedState = {
-    orders: [],
-    total: 0,
-    totalTooday: 0,
-    status: RequestStatus.Idle,
-    error: null
-  };
 
   test('тест ленты при загрузке', async () => {
     const currentState = feedSlice.reducer(

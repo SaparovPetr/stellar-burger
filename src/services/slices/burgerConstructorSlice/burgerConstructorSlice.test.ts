@@ -1,6 +1,7 @@
 import {
   burgerConstructorSlice,
   increseIndex,
+  initialStateForConstructor,
   removeConstuctorItems,
   setConstuctorItems
 } from './burgerConstructorSlice';
@@ -24,21 +25,6 @@ describe('🟢 тесты конструктора', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  const initialStateForConstructor = {
-    constructorItems: {
-      bun: {
-        _id: '',
-        name: 'Выберите булку',
-        price: 0,
-        image: 'https://www.svgrepo.com/show/404711/alien.svg'
-      },
-      ingredients: []
-    },
-    orderRequest: false,
-    orderModalData: null,
-    arrayForOrder: []
-  };
 
   test('добавление булки', async () => {
     const preparedBun = { ...mockBun, id: uuid.v4() };

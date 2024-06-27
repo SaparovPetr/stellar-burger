@@ -1,18 +1,16 @@
 import { RequestStatus, TIngredient } from '../../../utils/types';
 import { fetchIngredients } from '../../thunks/fetchIngredients';
-import { ConstructorPageState, ingredientsSlice } from './ingredientsSlice';
+import {
+  ConstructorPageState,
+  ingredientsSlice,
+  initialStateForAllIngredients
+} from './ingredientsSlice';
 import { mockIngredients } from './mock';
 
 describe('🟢 тесты игредиентов', () => {
   afterEach(() => {
     jest.restoreAllMocks();
   });
-
-  const initialStateForAllIngredients: ConstructorPageState = {
-    ingredients: [],
-    requestStatus: RequestStatus.Idle,
-    error: null
-  };
 
   test('в процессе загрузки', async () => {
     const currentState = ingredientsSlice.reducer(

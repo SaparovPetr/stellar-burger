@@ -20,7 +20,7 @@ export interface BurgerConstructorState {
   arrayForOrder: string[];
 }
 
-const initialStateForConstructor: BurgerConstructorState = {
+export const initialStateForConstructor: BurgerConstructorState = {
   constructorItems: {
     bun: {
       _id: '',

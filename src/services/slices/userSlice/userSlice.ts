@@ -16,7 +16,7 @@ export interface IinitialStateForUser {
   requestStatus: RequestStatus;
 }
 
-const initialStateForUser: IinitialStateForUser = {
+export const initialStateForUser: IinitialStateForUser = {
   isAuthChecked: false,
   data: null,
   requestStatus: RequestStatus.Idle
