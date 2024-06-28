@@ -11,7 +11,7 @@ const checkResponse = <T>(res: Response): Promise<T> => {
   }
 };
 
-type TServerResponse<T> = {
+export type TServerResponse<T> = {
   success: boolean;
 } & T;
 
@@ -74,7 +74,7 @@ type TFeedsResponse = TServerResponse<{
   totalToday: number;
 }>;
 
-type TOrdersResponse = TServerResponse<{
+export type TOrdersResponse = TServerResponse<{
   data: TOrder[];
 }>;
 
@@ -109,7 +109,7 @@ export const getOrdersApi = () =>
     return Promise.reject(data);
   });
 
-type TNewOrderResponse = TServerResponse<{
+export type TNewOrderResponse = TServerResponse<{
   order: TOrder;
   name: string;
 }>;
@@ -130,7 +130,7 @@ export const orderBurgerApi = (data: string[]) =>
     return Promise.reject(data);
   });
 
-type TOrderResponse = TServerResponse<{
+export type TOrderResponse = TServerResponse<{
   orders: TOrder[];
 }>;
 

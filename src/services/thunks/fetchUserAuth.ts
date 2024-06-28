@@ -6,11 +6,12 @@ import {
   logoutApi,
   TLoginData,
   updateUserApi,
-  forgotPasswordApi
-} from '@api';
+  forgotPasswordApi,
+  TServerResponse
+} from '../../utils/burger-api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { deleteCookie, setCookie } from '../../utils/cookie';
-import { userLogout } from '../slices/userSlice';
+// import { userLogout } from '../slices/userSlice/userSlice';
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
@@ -48,6 +49,7 @@ export const markThatPasswordIsLost = createAsyncThunk(
   }
 );
 
+// запрос регистрации
 export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (RegisterData: TRegisterData) => {
@@ -56,13 +58,9 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk(
-  'user/logoutUser',
-  async (_, { dispatch }) => {
-    logoutApi().then(() => {
-      localStorage.clear();
-      deleteCookie('accessToken');
-      dispatch(userLogout());
-    });
-  }
-);
+export const logoutUser = createAsyncThunk('user/logoutUser', async () => {
+  const response = await logoutApi();
+  localStorage.clear();
+  deleteCookie('accessToken');
+  return response;
+});

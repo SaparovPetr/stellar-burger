@@ -20,10 +20,10 @@ import { fetchIngredients } from '../../services/thunks/fetchIngredients';
 import { checkhUserAuth } from '../../services/thunks/fetchUserAuth';
 
 import { useAppDispatch, useAppSelector } from '../../services/store';
-import { selectIsLoading } from '../../services/slices/ingredientsSlice';
+import { selectIsLoading } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 
 import { RequestStatus } from '@utils-types';
-import { selectOnlyOneOrder } from '../../services/slices/orderSlice';
+import { selectOnlyOneOrder } from '../../services/slices/orderSlice/orderSlice';
 import ProtectedRoute from '../protected-route/protected-route';
 
 const App = () => {

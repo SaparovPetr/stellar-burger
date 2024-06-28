@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RequestStatus, TIngredient } from '@utils-types';
-import { fetchIngredients } from '../thunks/fetchIngredients';
+import { RequestStatus, TIngredient } from '../../../utils/types';
+import { fetchIngredients } from '../../thunks/fetchIngredients';
 import { useParams } from 'react-router-dom';
 
-interface ConstructorPageState {
+export interface ConstructorPageState {
   ingredients: TIngredient[];
   requestStatus: RequestStatus;
+  error: string | null;
 }
 
-const initialStateForAllIngredients: ConstructorPageState = {
+export const initialStateForAllIngredients: ConstructorPageState = {
   ingredients: [],
-  requestStatus: RequestStatus.Idle
+  requestStatus: RequestStatus.Idle,
+  error: null
 };
 
 export const ingredientsSlice = createSlice({
@@ -31,13 +33,16 @@ export const ingredientsSlice = createSlice({
     builder
       .addCase(fetchIngredients.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
+        state.error = null;
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.requestStatus = RequestStatus.Success;
         state.ingredients = action.payload;
+        state.error = null;
       })
-      .addCase(fetchIngredients.rejected, (state) => {
+      .addCase(fetchIngredients.rejected, (state, action) => {
         state.requestStatus = RequestStatus.Failed;
+        state.error = action.error.message || 'ошибка получения ингредиентов';
       });
   }
 });

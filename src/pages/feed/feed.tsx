@@ -2,7 +2,10 @@
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { FC, useEffect } from 'react';
-import { selectOrders, selectStatus } from '../../services/slices/feedSlice';
+import {
+  selectOrders,
+  selectStatus
+} from '../../services/slices/feedSlice/feedSlice';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { clearFeed, fetchFeed } from '../../services/thunks/fetchFeed';
 

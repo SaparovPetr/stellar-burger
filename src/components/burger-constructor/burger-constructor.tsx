@@ -7,10 +7,10 @@ import {
   selectConstuctorItems,
   selectOrderModalData,
   selectOrderRequest
-} from '../../services/slices/burgerConstructorSlice';
+} from '../../services/slices/burgerConstructorSlice/burgerConstructorSlice';
 import { clearMyOrder, fetchMyOrder } from '../../services/thunks/fetchMyOrder';
 import { useNavigate } from 'react-router-dom';
-import { selectUser } from '../../services/slices/userSlice';
+import { selectUser } from '../../services/slices/userSlice/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useAppSelector(selectConstuctorItems);

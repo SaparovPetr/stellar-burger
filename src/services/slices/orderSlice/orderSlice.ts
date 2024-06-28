@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { fetchOrder } from '../thunks/fetchOrder';
+import { fetchOrder } from '../../thunks/fetchOrder';
 
-interface OrderState {
+export interface OrderState {
   orders: TOrder[];
   status: boolean | null;
 }
 
-const initialStateForOrder: OrderState = {
+export const initialStateForOrder: OrderState = {
   orders: [],
   status: null
 };

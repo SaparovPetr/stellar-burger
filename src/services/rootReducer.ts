@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import { ingredientsSlice } from './slices/ingredientsSlice';
-import { orderSlice } from './slices/orderSlice';
-import { feedSlice } from './slices/feedSlice';
-import { ordersSlice } from './slices/ordersSlice';
-import { burgerConstructorSlice } from './slices/burgerConstructorSlice';
-import { userSlice } from './slices/userSlice';
+import { ingredientsSlice } from './slices/ingredientsSlice/ingredientsSlice';
+import { orderSlice } from './slices/orderSlice/orderSlice';
+import { feedSlice } from './slices/feedSlice/feedSlice';
+import { ordersSlice } from './slices/ordersSlice/ordersSlice';
+import { burgerConstructorSlice } from './slices/burgerConstructorSlice/burgerConstructorSlice';
+import { userSlice } from './slices/userSlice/userSlice';
 
 const rootReducer = combineReducers({
   [userSlice.name]: userSlice.reducer,

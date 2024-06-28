@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { RequestStatus, TOrder } from '@utils-types';
-import { clearFeed, fetchFeed } from '../thunks/fetchFeed';
+import { RequestStatus, TOrder } from '../../../utils/types';
+import { clearFeed, fetchFeed } from '../../thunks/fetchFeed';
 
-interface FeedState {
+export interface FeedState {
   orders: TOrder[];
   total: number;
   totalTooday: number;
@@ -10,7 +10,7 @@ interface FeedState {
   error: string | null;
 }
 
-const initialStateForOrders: FeedState = {
+export const initialStateForOrders: FeedState = {
   orders: [],
   total: 0,
   totalTooday: 0,
@@ -32,16 +32,18 @@ export const feedSlice = createSlice({
     builder
       .addCase(fetchFeed.pending, (state) => {
         state.status = RequestStatus.Loading;
+        state.error = null;
       })
       .addCase(fetchFeed.fulfilled, (state, action) => {
         state.status = RequestStatus.Success;
         state.orders = action.payload.orders;
         state.total = action.payload.total;
         state.totalTooday = action.payload.totalToday;
+        state.error = null;
       })
       .addCase(fetchFeed.rejected, (state, action) => {
         state.status = RequestStatus.Failed;
-        state.error = action.error.message || null;
+        state.error = action.error.message || 'ошибка получения ленты';
       })
       .addCase(clearFeed.fulfilled, () => initialStateForOrders);
   }
