@@ -40,7 +40,7 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
       </div>
     )}
     <ul className={styles.elements}>
-      {constructorItems.ingredients.length > 0 ? (
+      {constructorItems.ingredients.length ? (
         constructorItems.ingredients.map(
           (item: TConstructorIngredient, index: number) => (
             <BurgerConstructorElement
@@ -79,23 +79,63 @@ export const BurgerConstructorUI: FC<BurgerConstructorUIProps> = ({
         Выберите булки
       </div>
     )}
+
     <div className={`${styles.total} mt-10 mr-4`}>
       <div className={`${styles.cost} mr-10`}>
         <p className={`text ${styles.text} mr-2`}>{price}</p>
         <CurrencyIcon type='primary' />
       </div>
-      <Button
-        htmlType='button'
-        type='primary'
-        size='large'
-        children={
-          constructorItems.ingredients.length && constructorItems.bun.price > 0
-            ? 'Оформить заказ'
-            : 'Сначала соберите бургер'
-        }
-        onClick={onOrderClick}
-        data-cy='make-order-button'
-      />
+
+      {constructorItems.bun.price === 0 &&
+        constructorItems.ingredients.length === 0 && (
+          <Button
+            disabled
+            htmlType='button'
+            type='primary'
+            size='large'
+            children={'Нужно добавить ингредиенты'}
+            onClick={onOrderClick}
+            data-cy='make-order-button'
+          />
+        )}
+
+      {constructorItems.bun.price === 0 &&
+        constructorItems.ingredients.length > 0 && (
+          <Button
+            disabled
+            htmlType='button'
+            type='primary'
+            size='large'
+            children={'Нужно добавить булку'}
+            onClick={onOrderClick}
+            data-cy='make-order-button'
+          />
+        )}
+
+      {constructorItems.bun.price > 1 &&
+        constructorItems.ingredients.length === 0 && (
+          <Button
+            disabled
+            htmlType='button'
+            type='primary'
+            size='large'
+            children={'Нужно выбрать начинку'}
+            onClick={onOrderClick}
+            data-cy='make-order-button'
+          />
+        )}
+
+      {constructorItems.bun.price > 1 &&
+        constructorItems.ingredients.length > 0 && (
+          <Button
+            htmlType='button'
+            type='primary'
+            size='large'
+            children={'Оформить заказ'}
+            onClick={onOrderClick}
+            data-cy='make-order-button'
+          />
+        )}
     </div>
 
     {orderRequest && (
