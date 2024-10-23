@@ -22,3 +22,29 @@
   flex-direction: column;
   align-items: center;
 }
+
+
+
+@media (max-width: 991px) {
+  .nutritional_values {
+    max-width: 465px;
+  }
+}
+
+@media (max-width: 584px) {
+  .nutritional_values {
+    flex-direction: column;
+    max-width: 230px;
+  }
+
+  .nutritional_value {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+  }
+
+  .content h3 {
+    max-width: 230px;
+  }
+}

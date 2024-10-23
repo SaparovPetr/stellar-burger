@@ -42,3 +42,17 @@
   flex-direction: column;
   align-items: center;
 }
+
+@media (max-width: 991px) {
+  .modal {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 584px) {
+  .modal {
+    max-width: 190px;
+    padding: 0 40px 20px;
+  }
+
+} 

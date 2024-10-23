@@ -5,3 +5,14 @@
 .form {
   max-width: 480px;
 }
+
+@media (max-width: 1300px) {
+  .menu {
+    padding-left: 5%;
+    margin-right: 0;
+    padding-bottom: 5%;
+  }
+    .form {
+    padding-right: 10%;
+  }
+}

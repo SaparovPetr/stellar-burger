@@ -1,6 +1,7 @@
 .header {
   background-color: var(--background);
 }
+
 .menu {
   display: flex;
   align-items: center;
@@ -37,3 +38,27 @@
   align-items: center;
   margin: 0 auto;
 }
+
+@media (max-width: 991px) {
+  .menu {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    height: 180px;
+  }
+
+  .menu_part_left {
+    order: 3;
+    align-self: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .link_position_last {
+    align-self: flex-end;
+  }
+}
+
+
+@media (max-width: 767px) {}
+@media (max-width:  575px) {}

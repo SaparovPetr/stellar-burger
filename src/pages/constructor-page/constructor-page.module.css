@@ -20,3 +20,24 @@
   overflow: hidden;
   max-height: 80vh;
 }
+
+@media (max-width: 991px) {
+  .title {
+    text-align: center;
+    padding-block-end: 30px;
+  }
+
+  .main {
+    flex-direction: column-reverse;
+    max-height: fit-content;
+    align-items: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .title {
+    padding: 10px;
+  }
+}
+
+

@@ -5,3 +5,9 @@
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 633px) {
+  .items {
+    grid-template-columns: 1fr;
+  }
+}

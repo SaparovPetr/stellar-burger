@@ -23,7 +23,6 @@
   width: 1240px;
   overflow: hidden;
   max-height: 80vh;
-
 }
 
 .columnOrders {
@@ -34,4 +33,30 @@
   overflow-y: auto;
   overflow-x: hidden;
   width: 580px;
+}
+
+
+@media (max-width: 1270px) {
+  .containerMain {
+    padding: 0 5%;
+  }
+
+  .titleBox {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .main {
+    flex-direction: column-reverse;
+    max-height: fit-content;
+    gap: 50px;
+  }
+
+  .columnInfo {
+    overflow-y: hidden;
+  }
+}
+
+@media (max-width: 584px) {
+
 }

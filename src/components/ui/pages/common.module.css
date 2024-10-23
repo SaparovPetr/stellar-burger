@@ -46,3 +46,20 @@
   color: #ff0000;
   text-align: center;
 }
+
+@media (max-width: 991px) {
+  .wrapCenter {
+    width: 380px;    
+  }
+
+  .question {
+    text-align: center;
+  }
+}
+
+@media (max-width: 584px) {
+  .wrapCenter {
+    width: 300px;    
+  }
+}
+
