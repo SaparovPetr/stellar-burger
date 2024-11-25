@@ -1,9 +1,16 @@
-# Stellar Burger
+# Интернет-магазин бургеров
 
-Link to my repository:
-https://github.com/SaparovPetr/stellar-burger/
+## Обеспечена:
 
-Link to GiHub Pages:
-https://saparovpetr.github.io/stellar-burger/
+- авторизация,
+- логика сборки собственного бургера из предложенных ингредиентов.
 
-[Designer layout here](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>)
+## Стэк:
+
+React, Redux, React Router
+
+## Ссылки:
+
+[Ссылка на деплой](https://saparovpetr.github.io/stellar-burger/)
+
+[Ссылка на макет](<https://www.figma.com/file/vIywAvqfkOIRWGOkfOnReY/React-Fullstack_-Проектные-задачи-(3-месяца)_external_link?type=design&node-id=0-1&mode=design>)
