@@ -32,7 +32,7 @@ export const OrderCardUI: FC<OrderCardUIProps> = memo(
       {location.pathname === '/profile/orders' && (
         <OrderStatus status={orderInfo.status} />
       )}
-      <div className={`pt-6 ${styles.order_content}`}>
+      <div className={`${styles.order_content}`}>
         <ul className={styles.ingredients}>
           {orderInfo.ingredientsToShow.map((ingredient, index) => {
             let zIndex = maxIngredients - index;

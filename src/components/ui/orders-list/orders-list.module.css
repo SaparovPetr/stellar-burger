@@ -3,3 +3,12 @@
   width: 100%;
   height: 100%;
 }
+
+
+/* @media (max-width: 584px) {
+  .content {
+    overflow-y:visible;
+    width: 10%;
+    height: 100%;
+  }
+} */

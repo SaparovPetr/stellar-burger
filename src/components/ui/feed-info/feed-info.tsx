@@ -16,7 +16,7 @@ export const FeedInfoUI: FC<FeedInfoUIProps> = memo(
             title={'Готовы'}
             textColor={'blue'}
           />
-          <HalfColumn orders={pendingOrders} title={'В работе'} />
+          {/* <HalfColumn orders={pendingOrders} title={'В работе'} /> */}
         </div>
         <Column title={'Выполнено за все время'} content={total} />
         <Column title={'Выполнено за сегодня'} content={totalToday} />

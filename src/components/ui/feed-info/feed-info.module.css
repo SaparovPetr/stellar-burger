@@ -3,6 +3,7 @@
   justify-content: left;
   align-items: flex-start;
 }
+
 .column {
   display: inline;
   min-width: 50%;
@@ -32,3 +33,12 @@
 .content {
   text-align: left;
 }
+
+
+
+
+/* @media (max-width: 584px) {
+  .text {
+    color:red;
+  }
+} */
