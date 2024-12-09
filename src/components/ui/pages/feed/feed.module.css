@@ -58,33 +58,16 @@
 }
 
 @media (max-width: 584px) {
-
-  /* .columnInfo {
-    width: 300px;
-  }
-
-  .columnInfo ul {
-    width: 300px;
-  } */
-
   .titleBox {
     flex-direction: column;
     gap: 30px;
   }
 
-  .main {
-    /* max-width: 300px; */
-  }
-
-  .main h3 {
+    .main h3 {
     font-size: 20px;
   }
 
   .main p {
     font-size: 80px;
   }
-
-  /* .columnOrders {
-    width: 290px;
-  } */
 }
