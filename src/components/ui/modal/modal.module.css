@@ -52,7 +52,6 @@
 @media (max-width: 584px) {
   .modal {
     max-width: 190px;
-    padding: 0 40px 20px;
-  }
-
+    padding: 20px 40px 20px;
+  } 
 } 

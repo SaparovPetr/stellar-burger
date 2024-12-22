@@ -74,3 +74,18 @@
 .total {
   margin-left: auto;
 }
+
+@media (max-width: 991px) {
+  .item {
+    flex-direction: column;
+    display: none;
+  }
+
+  .wrap {
+    width: 200px;
+  }
+  
+  .wrap p {
+    display: none;
+  } 
+} 
