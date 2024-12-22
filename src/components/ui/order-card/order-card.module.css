@@ -68,6 +68,10 @@
 
 
 @media (max-width: 584px) {
+  .order {
+    background-color: transparent;
+  }
+
   .order_info {
     flex-direction: column;
     align-items: start;

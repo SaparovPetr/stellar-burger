@@ -8,10 +8,21 @@
   max-height: 90vh;
   width: 1240px;
   overflow: hidden;
-  margin: 0 auto;
-  
+  margin: 0 auto;  
 }
 
 .orders {
   width: 100%;
+}
+
+
+@media (max-width: 1250px) {
+  .menu {
+    padding: 0 10px;
+  }
+  
+  .main {
+    flex-direction: column;
+    width: 100%;
+  }
 }
