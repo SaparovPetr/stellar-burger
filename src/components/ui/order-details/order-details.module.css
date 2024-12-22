@@ -12,3 +12,10 @@
 .text {
   color: #8585ad;
 }
+
+
+@media (max-width: 1250px) {
+  .title {
+    font-size: 50px;
+  }
+}
